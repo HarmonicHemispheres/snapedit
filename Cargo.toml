@@ -1,0 +1,24 @@
+[package]
+name = "snapedit"
+version = "0.1.0"
+edition = "2024"
+description = "A lightweight screenshot + annotation tool for preparing images as context for LLMs and AI agents."
+
+[dependencies]
+eframe = "0.34"                                                # egui + glow + native window (default features)
+egui = "0.34"
+image = { version = "0.25", default-features = false, features = ["png", "jpeg"] }
+tiny-skia = "0.12"                                             # canonical export compositing
+ab_glyph = "0.2"                                              # glyph rasterization for export text
+arboard = { version = "3", features = ["image-data"] }        # clipboard image support
+rfd = "0.17"                                                  # native save/open dialogs
+xcap = { version = "0.9", features = ["image"] }              # monitor + window capture -> RgbaImage
+egui-phosphor = "0.12.0"
+
+# Portable, size-optimized release build.
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
+strip = true
+panic = "abort"
